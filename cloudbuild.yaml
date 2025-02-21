@@ -1,0 +1,25 @@
+steps:
+  # Step 1: Install dependencies
+  - name: 'python:3.9'
+    entrypoint: 'pip'
+    args: ['install', '-r', 'requirements.txt']
+
+  # Step 2: Run tests
+  - name: 'python:3.9'
+    entrypoint: 'python'
+    args: ['-m', 'unittest', 'discover', 'tests']
+
+  # Step 3: Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID', '.']
+
+  # Step 4: Push Docker image to GCR
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID']
+
+  # Step 5: Deploy (Optional: If using Kubernetes or Cloud Run)
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['run', 'deploy', 'myapp', '--image', 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID', '--platform', 'managed', '--region', 'us-central1']
+
+images:
+  - 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID'
