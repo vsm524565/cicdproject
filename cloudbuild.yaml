@@ -17,9 +17,21 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID']
 
-  # Step 5: Deploy (Optional: If using Kubernetes or Cloud Run)
+  # Step 5: Deploy to Cloud Run (Optional: Modify for Kubernetes if needed)
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['run', 'deploy', 'myapp', '--image', 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID', '--platform', 'managed', '--region', 'us-central1']
+    args: [
+      'run', 'deploy', 'myapp',
+      '--image', 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID',
+      '--platform', 'managed',
+      '--region', 'us-central1',
+      '--allow-unauthenticated'
+    ]
 
 images:
   - 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID'
+
+# Fix for the 'build.service_account' error
+options:
+  logging: CLOUD_LOGGING_ONLY  # Use Cloud Logging instead of a bucket
+  default_logs_bucket_behavior: REGIONAL_USER_OWNED_BUCKET  # Ensures logging works
+logsBucket: "gs://my-cloud-build-logs-bucket"  # Specify an existing bucket
