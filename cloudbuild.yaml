@@ -31,7 +31,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: 
       - 'push'
-      - 'us-east1-docker.pkg.dev/upgradlabs-1738334790345/mydockerrgisty/myapp:$BUILD_ID'
+      - 'us-east1-docker.pkg.dev/upgradlabs-1738334790345/mydockerrgistry/myapp:$BUILD_ID'
       
 images:
   - 'us-east1-docker.pkg.dev/upgradlabs-1738334790345/mydockerrgistry/myapp:$BUILD_ID'
