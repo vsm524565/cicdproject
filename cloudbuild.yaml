@@ -23,7 +23,7 @@ steps:
       'run', 'deploy', 'myapp',
       '--image', 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID',
       '--platform', 'managed',
-      '--region', 'us-central1',
+      '--region', 'us-east1',
       '--allow-unauthenticated'
     ]
 
@@ -34,4 +34,4 @@ images:
 options:
   logging: CLOUD_LOGGING_ONLY  # Use Cloud Logging instead of a bucket
   default_logs_bucket_behavior: REGIONAL_USER_OWNED_BUCKET  # Ensures logging works
-logsBucket: "gs://my-cloud-build-logs-bucket"  # Specify an existing bucket
+logsBucket: "gs://amit23compow"  # Specify an existing bucket
