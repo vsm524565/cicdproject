@@ -35,5 +35,4 @@ steps:
       
 images:
   - 'us-east1-docker.pkg.dev/upgradlabs-1738334790345/mydockerrgistry/myapp:$BUILD_ID'
-
 logsBucket: "gs://amit23compow"
