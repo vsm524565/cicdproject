@@ -1,13 +1,23 @@
 steps:
-  # Step 1: Install dependencies
+  # Step 1: Install dependencies in a virtual environment
   - name: 'python:3.9'
-    entrypoint: 'pip'
-    args: ['install', '-r', 'requirements.txt']
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        python -m venv venv && \
+        . venv/bin/activate && \
+        pip install --upgrade pip && \
+        pip install -r requirements.txt
 
-  # Step 2: Run tests
+  # Step 2: Run tests in the same environment
   - name: 'python:3.9'
-    entrypoint: 'python'
-    args: ['-m', 'unittest', 'discover', 'tests']
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        . venv/bin/activate && \
+        python -m unittest discover tests
 
   # Step 3: Build Docker image
   - name: 'gcr.io/cloud-builders/docker'
@@ -17,7 +27,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID']
 
-  # Step 5: Deploy to Cloud Run (Optional: Modify for Kubernetes if needed)
+  # Step 5: Deploy to Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
     args: [
       'run', 'deploy', 'myapp',
@@ -30,7 +40,4 @@ steps:
 images:
   - 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID'
 
-# Fix for the 'build.service_account' error
-options:
-  default_logs_bucket_behavior: REGIONAL_USER_OWNED_BUCKET  # Ensures logging works
-logsBucket: "gs://amit23compow"  # Specify an existing bucket
+logsBucket: "gs://amit23compow"
