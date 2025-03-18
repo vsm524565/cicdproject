@@ -32,21 +32,7 @@ steps:
     args: 
       - 'push'
       - 'us-east1-docker.pkg.dev/upgradlabs-1738334790345/mydockerrgisty/myapp:$BUILD_ID'
-
-  # Step 5: Deploy to Cloud Run
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args:
-      - 'run'
-      - 'deploy'
-      - 'myapp'
-      - '--image'
-      - 'us-east1-docker.pkg.dev/upgradlabs-1738334790345/mydockerrgisty/myapp:$BUILD_ID'
-      - '--platform'
-      - 'managed'
-      - '--region'
-      - 'us-east1'
-      - '--allow-unauthenticated'
-
+      
 images:
   - 'us-east1-docker.pkg.dev/upgradlabs-1738334790345/mydockerrgisty/myapp:$BUILD_ID'
 
