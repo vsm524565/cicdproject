@@ -32,6 +32,5 @@ images:
 
 # Fix for the 'build.service_account' error
 options:
-  logging: CLOUD_LOGGING_ONLY  # Use Cloud Logging instead of a bucket
   default_logs_bucket_behavior: REGIONAL_USER_OWNED_BUCKET  # Ensures logging works
 logsBucket: "gs://amit23compow"  # Specify an existing bucket
