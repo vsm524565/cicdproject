@@ -24,15 +24,15 @@ steps:
     args: 
       - 'build'
       - '-t'
-      - 'us-east1-docker.pkg.dev/upgradlabs-1738334790345/mydockerrgistry/myapp:$BUILD_ID'
+      - 'us-east1-docker.pkg.dev/upgradlabs-1740997931739/vivekarfirst/myapp:$BUILD_ID'
       - '.'
 
   # Step 4: Push Docker image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: 
       - 'push'
-      - 'us-east1-docker.pkg.dev/upgradlabs-1738334790345/mydockerrgistry/myapp:$BUILD_ID'
+      - 'us-east1-docker.pkg.dev/upgradlabs-1740997931739/vivekarfirst/myapp:$BUILD_ID'
       
 images:
-  - 'us-east1-docker.pkg.dev/upgradlabs-1738334790345/mydockerrgistry/myapp:$BUILD_ID'
-logsBucket: "gs://amit23compow"
+  - 'us-east1-docker.pkg.dev/upgradlabs-1740997931739/vivekarfirst/myapp:$BUILD_ID'
+logsBucket: "gs://vivek-demo-23025"
